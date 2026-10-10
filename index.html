@@ -288,86 +288,167 @@
     </div>
 
     <div class="markets-map">
-      <!-- Stylized world map with markers -->
+      <!-- Premium world map with connection lines -->
       <svg class="map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
-        <!-- Simplified continent shapes -->
-        <g fill="#e8e4dc" stroke="#d6d2c9" stroke-width="0.5">
+        <defs>
+          <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="6" height="6">
+            <circle cx="3" cy="3" r="1" fill="#d6d2c9"/>
+          </pattern>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#c97b5c;stop-opacity:0.1"/>
+            <stop offset="50%" style="stop-color:#c97b5c;stop-opacity:0.6"/>
+            <stop offset="100%" style="stop-color:#8a9d80;stop-opacity:0.1"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background grid dots -->
+        <rect width="1000" height="500" fill="url(#dotPattern)" opacity="0.5"/>
+
+        <!-- Connection lines -->
+        <g class="connection-lines" opacity="0.4">
+          <!-- HK to London -->
+          <path d="M820,180 Q650,80 490,100" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="16;0" dur="8s" repeatCount="indefinite"/>
+          </path>
+          <!-- HK to Toronto -->
+          <path d="M820,180 Q500,60 200,110" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="0;16" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <!-- HK to Singapore -->
+          <path d="M820,180 Q810,210 800,240" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="8;0" dur="6s" repeatCount="indefinite"/>
+          </path>
+          <!-- HK to Dubai -->
+          <path d="M820,180 Q700,170 595,175" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="0;12" dur="7s" repeatCount="indefinite"/>
+          </path>
+          <!-- London to Dubai -->
+          <path d="M490,100 Q540,130 595,175" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="10;0" dur="9s" repeatCount="indefinite"/>
+          </path>
+          <!-- Singapore to Sydney -->
+          <path d="M800,240 Q830,290 860,340" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" values="0;8" dur="7s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- Stylized continents - more refined -->
+        <g fill="#e8e4dc" stroke="#d6d2c9" stroke-width="0.8">
           <!-- North America -->
-          <path d="M80,80 Q120,60 200,70 Q280,80 310,120 Q330,160 300,200 Q270,230 230,240 Q190,250 160,230 Q130,210 110,180 Q70,150 80,80Z"/>
+          <path d="M70,70 Q100,50 180,55 Q260,60 310,110 Q340,160 320,200 Q300,230 260,245 Q220,255 180,240 Q140,225 110,190 Q75,155 65,115 Q60,90 70,70Z"/>
           <!-- South America -->
-          <path d="M240,260 Q280,250 300,280 Q320,320 310,370 Q300,410 270,430 Q250,440 240,420 Q220,380 225,340 Q230,300 240,260Z"/>
+          <path d="M230,250 Q270,240 300,275 Q325,320 315,375 Q305,420 275,440 Q255,450 240,430 Q220,390 220,345 Q220,300 230,250Z"/>
           <!-- Europe -->
-          <path d="M450,70 Q500,60 540,75 Q570,90 560,120 Q550,145 520,150 Q490,155 470,140 Q450,125 445,100 Q440,80 450,70Z"/>
+          <path d="M440,60 Q490,50 545,65 Q575,80 565,115 Q555,145 525,155 Q495,160 470,145 Q445,130 435,100 Q430,75 440,60Z"/>
           <!-- Africa -->
-          <path d="M470,170 Q520,160 550,190 Q580,220 570,270 Q560,320 540,360 Q520,390 500,385 Q470,380 460,340 Q450,300 455,250 Q460,200 470,170Z"/>
-          <!-- Middle East -->
-          <path d="M570,150 Q600,140 620,160 Q635,180 625,200 Q615,220 595,215 Q575,210 570,190 Q565,170 570,150Z"/>
-          <!-- Asia -->
-          <path d="M620,60 Q720,50 820,70 Q880,90 900,130 Q920,170 900,200 Q880,230 840,240 Q790,250 740,240 Q690,230 660,210 Q630,190 620,160 Q610,120 620,60Z"/>
-          <!-- Southeast Asia / Australia hint -->
-          <path d="M780,300 Q830,290 870,310 Q900,330 890,360 Q880,385 850,390 Q820,395 790,380 Q770,365 770,340 Q770,315 780,300Z"/>
+          <path d="M460,160 Q510,150 550,185 Q580,220 570,275 Q560,325 535,365 Q510,395 485,390 Q460,385 450,340 Q440,295 445,245 Q450,195 460,160Z"/>
+          <!-- Middle East / Arabia -->
+          <path d="M560,140 Q595,130 625,155 Q645,180 635,205 Q625,225 600,220 Q575,215 565,190 Q555,165 560,140Z"/>
+          <!-- Asia (large) -->
+          <path d="M610,50 Q710,35 820,55 Q890,75 920,125 Q940,175 920,210 Q900,240 850,255 Q790,265 730,255 Q670,240 640,215 Q610,190 600,150 Q590,100 610,50Z"/>
+          <!-- Southeast Asia -->
+          <path d="M760,260 Q800,250 830,275 Q850,295 845,320 Q840,340 815,350 Q790,355 770,340 Q755,325 755,300 Q755,275 760,260Z"/>
+          <!-- Australia -->
+          <path d="M770,350 Q820,340 870,360 Q900,380 890,410 Q880,435 845,440 Q810,445 780,425 Q760,410 755,385 Q755,365 770,350Z"/>
+          <!-- Japan/Korea hint -->
+          <path d="M900,130 Q920,125 925,150 Q930,170 920,185 Q910,195 900,185 Q895,170 900,150Z"/>
+          <!-- UK/Ireland -->
+          <path d="M455,70 Q470,65 475,80 Q478,95 470,105 Q462,110 455,100 Q450,88 455,70Z"/>
         </g>
 
-        <!-- Market markers -->
-        <g class="markers">
-          <!-- Toronto / Canada -->
-          <g class="marker" data-region="北美">
-            <circle cx="200" cy="110" r="6" fill="#c97b5c"/>
-            <circle cx="200" cy="110" r="12" fill="#c97b5c" opacity="0.25">
-              <animate attributeName="r" values="6;18;6" dur="3s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+        <!-- Major city markers with glow -->
+        <g class="markers" filter="url(#glow)">
+          <!-- Toronto / Canada - Primary -->
+          <g class="marker marker-primary">
+            <circle cx="210" cy="115" r="10" fill="#c97b5c" opacity="0.2"/>
+            <circle cx="210" cy="115" r="6" fill="#c97b5c"/>
+            <circle cx="210" cy="115" r="14" fill="none" stroke="#c97b5c" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="8;20;8" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- London / Europe -->
-          <g class="marker" data-region="欧洲">
-            <circle cx="490" cy="100" r="6" fill="#8a9d80"/>
-            <circle cx="490" cy="100" r="12" fill="#8a9d80" opacity="0.25">
-              <animate attributeName="r" values="6;18;6" dur="3.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="3.5s" repeatCount="indefinite"/>
+          <!-- London / Europe - Primary -->
+          <g class="marker marker-primary">
+            <circle cx="475" cy="90" r="10" fill="#8a9d80" opacity="0.2"/>
+            <circle cx="475" cy="90" r="6" fill="#8a9d80"/>
+            <circle cx="475" cy="90" r="14" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="8;20;8" dur="3.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="3.5s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Hong Kong / Asia -->
-          <g class="marker" data-region="香港">
-            <circle cx="820" cy="180" r="6" fill="#c97b5c"/>
-            <circle cx="820" cy="180" r="12" fill="#c97b5c" opacity="0.25">
-              <animate attributeName="r" values="6;18;6" dur="2.8s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="2.8s" repeatCount="indefinite"/>
+          <!-- Hong Kong - Primary / HQ -->
+          <g class="marker marker-hq">
+            <circle cx="810" cy="175" r="14" fill="#c97b5c" opacity="0.25"/>
+            <circle cx="810" cy="175" r="8" fill="#c97b5c"/>
+            <circle cx="810" cy="175" r="18" fill="none" stroke="#c97b5c" stroke-width="1.5" opacity="0.6">
+              <animate attributeName="r" values="10;26;10" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Singapore -->
-          <g class="marker" data-region="新加坡">
-            <circle cx="800" cy="240" r="5" fill="#8a9d80"/>
-            <circle cx="800" cy="240" r="10" fill="#8a9d80" opacity="0.25">
-              <animate attributeName="r" values="5;15;5" dur="3.2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="3.2s" repeatCount="indefinite"/>
+          <!-- Singapore - Secondary -->
+          <g class="marker marker-secondary">
+            <circle cx="785" cy="265" r="8" fill="#8a9d80" opacity="0.2"/>
+            <circle cx="785" cy="265" r="5" fill="#8a9d80"/>
+            <circle cx="785" cy="265" r="12" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.4">
+              <animate attributeName="r" values="6;16;6" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="3.2s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Sydney / Australia -->
-          <g class="marker" data-region="澳洲">
-            <circle cx="860" cy="340" r="5" fill="#8a9d80"/>
-            <circle cx="860" cy="340" r="10" fill="#8a9d80" opacity="0.25">
-              <animate attributeName="r" values="5;15;5" dur="4s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="4s" repeatCount="indefinite"/>
+          <!-- Sydney / Australia - Secondary -->
+          <g class="marker marker-secondary">
+            <circle cx="840" cy="390" r="8" fill="#8a9d80" opacity="0.2"/>
+            <circle cx="840" cy="390" r="5" fill="#8a9d80"/>
+            <circle cx="840" cy="390" r="12" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.4">
+              <animate attributeName="r" values="6;16;6" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Dubai / Middle East -->
-          <g class="marker" data-region="中东">
-            <circle cx="595" cy="175" r="5" fill="#c97b5c"/>
-            <circle cx="595" cy="175" r="10" fill="#c97b5c" opacity="0.25">
-              <animate attributeName="r" values="5;15;5" dur="3.8s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.4;0;0.4" dur="3.8s" repeatCount="indefinite"/>
+          <!-- Dubai / Middle East - Secondary -->
+          <g class="marker marker-secondary">
+            <circle cx="585" cy="170" r="8" fill="#c97b5c" opacity="0.2"/>
+            <circle cx="585" cy="170" r="5" fill="#c97b5c"/>
+            <circle cx="585" cy="170" r="12" fill="none" stroke="#c97b5c" stroke-width="1" opacity="0.4">
+              <animate attributeName="r" values="6;16;6" dur="3.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="3.8s" repeatCount="indefinite"/>
             </circle>
           </g>
         </g>
 
-        <!-- Labels -->
-        <g class="map-labels" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="11">
-          <text x="200" y="80" text-anchor="middle">北美</text>
-          <text x="490" y="75" text-anchor="middle">欧洲</text>
-          <text x="820" y="158" text-anchor="middle">香港</text>
-          <text x="800" y="265" text-anchor="middle">新加坡</text>
-          <text x="860" y="365" text-anchor="middle">澳洲</text>
-          <text x="595" y="155" text-anchor="middle">中东</text>
+        <!-- City labels -->
+        <g class="map-labels">
+          <!-- Primary labels -->
+          <g class="map-label map-label-primary">
+            <rect x="160" y="70" width="80" height="22" rx="11" fill="#fff" stroke="#e5e1d8"/>
+            <text x="200" y="85" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="600">多伦多 · 北美</text>
+          </g>
+          <g class="map-label map-label-primary">
+            <rect x="420" y="45" width="110" height="22" rx="11" fill="#fff" stroke="#e5e1d8"/>
+            <text x="475" y="60" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="600">伦敦 · 欧洲</text>
+          </g>
+          <g class="map-label map-label-hq">
+            <rect x="750" y="130" width="120" height="26" rx="13" fill="#c97b5c"/>
+            <text x="810" y="148" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">香港 · 总部</text>
+          </g>
+          <!-- Secondary labels -->
+          <g class="map-label map-label-secondary">
+            <rect x="735" y="280" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
+            <text x="785" y="294" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">新加坡</text>
+          </g>
+          <g class="map-label map-label-secondary">
+            <rect x="790" y="405" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
+            <text x="840" y="419" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">悉尼 · 澳洲</text>
+          </g>
+          <g class="map-label map-label-secondary">
+            <rect x="535" y="130" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
+            <text x="585" y="144" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">迪拜 · 中东</text>
+          </g>
         </g>
       </svg>
     </div>
