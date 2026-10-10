@@ -288,166 +288,262 @@
     </div>
 
     <div class="markets-map">
-      <!-- Premium world map with connection lines -->
-      <svg class="map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
+      <!-- Premium dark globe-style map -->
+      <svg class="map-svg" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="6" height="6">
-            <circle cx="3" cy="3" r="1" fill="#d6d2c9"/>
-          </pattern>
-          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#c97b5c;stop-opacity:0.1"/>
-            <stop offset="50%" style="stop-color:#c97b5c;stop-opacity:0.6"/>
-            <stop offset="100%" style="stop-color:#8a9d80;stop-opacity:0.1"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <!-- Glow filters -->
+          <filter id="glowOrange" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
             <feMerge>
-              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          <filter id="glowGreen" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glowStrong" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          
+          <!-- Gradient for continent -->
+          <linearGradient id="landGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#2a3040"/>
+            <stop offset="100%" style="stop-color:#1e2330"/>
+          </linearGradient>
+          
+          <!-- Gradient for arcs -->
+          <linearGradient id="arcGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#c97b5c;stop-opacity:0"/>
+            <stop offset="50%" style="stop-color:#c97b5c;stop-opacity:0.8"/>
+            <stop offset="100%" style="stop-color:#8a9d80;stop-opacity:0"/>
+          </linearGradient>
+          
+          <!-- Radial glow for HQ -->
+          <radialGradient id="hqGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#c97b5c;stop-opacity:0.4"/>
+            <stop offset="40%" style="stop-color:#c97b5c;stop-opacity:0.1"/>
+            <stop offset="100%" style="stop-color:#c97b5c;stop-opacity:0"/>
+          </radialGradient>
+          
+          <!-- Grid pattern -->
+          <pattern id="gridPattern" patternUnits="userSpaceOnUse" width="40" height="40">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2a3040" stroke-width="0.5" opacity="0.5"/>
+          </pattern>
         </defs>
 
-        <!-- Background grid dots -->
-        <rect width="1000" height="500" fill="url(#dotPattern)" opacity="0.5"/>
+        <!-- Background -->
+        <rect width="1000" height="520" fill="#0f1218"/>
+        
+        <!-- Grid overlay -->
+        <rect width="1000" height="520" fill="url(#gridPattern)"/>
+        
+        <!-- Subtle horizontal glow lines -->
+        <g opacity="0.15">
+          <line x1="0" y1="130" x2="1000" y2="130" stroke="#c97b5c" stroke-width="0.5"/>
+          <line x1="0" y1="260" x2="1000" y2="260" stroke="#c97b5c" stroke-width="0.5"/>
+          <line x1="0" y1="390" x2="1000" y2="390" stroke="#c97b5c" stroke-width="0.5"/>
+        </g>
 
-        <!-- Connection lines -->
-        <g class="connection-lines" opacity="0.4">
-          <!-- HK to London -->
-          <path d="M820,180 Q650,80 490,100" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="16;0" dur="8s" repeatCount="indefinite"/>
+        <!-- Arc connections (curved flight paths) -->
+        <g class="flight-paths">
+          <!-- HK -> Toronto (long arc over north pole) -->
+          <path d="M800,200 Q500,-40 220,150" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.7">
+            <animate attributeName="stroke-dashoffset" values="24;0" dur="12s" repeatCount="indefinite"/>
           </path>
-          <!-- HK to Toronto -->
-          <path d="M820,180 Q500,60 200,110" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="0;16" dur="10s" repeatCount="indefinite"/>
+          <!-- HK -> London -->
+          <path d="M800,200 Q550,80 480,140" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.6">
+            <animate attributeName="stroke-dashoffset" values="0;24" dur="10s" repeatCount="indefinite"/>
           </path>
-          <!-- HK to Singapore -->
-          <path d="M820,180 Q810,210 800,240" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="8;0" dur="6s" repeatCount="indefinite"/>
+          <!-- HK -> Singapore -->
+          <path d="M800,200 Q790,280 775,310" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.6">
+            <animate attributeName="stroke-dashoffset" values="12;0" dur="7s" repeatCount="indefinite"/>
           </path>
-          <!-- HK to Dubai -->
-          <path d="M820,180 Q700,170 595,175" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="0;12" dur="7s" repeatCount="indefinite"/>
+          <!-- HK -> Dubai -->
+          <path d="M800,200 Q680,200 590,210" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.5">
+            <animate attributeName="stroke-dashoffset" values="0;18" dur="8s" repeatCount="indefinite"/>
           </path>
-          <!-- London to Dubai -->
-          <path d="M490,100 Q540,130 595,175" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="10;0" dur="9s" repeatCount="indefinite"/>
+          <!-- HK -> Sydney -->
+          <path d="M800,200 Q830,320 830,410" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.5">
+            <animate attributeName="stroke-dashoffset" values="15;0" dur="9s" repeatCount="indefinite"/>
           </path>
-          <!-- Singapore to Sydney -->
-          <path d="M800,240 Q830,290 860,340" stroke="url(#lineGradient)" stroke-width="1" fill="none" stroke-dasharray="4,4">
-            <animate attributeName="stroke-dashoffset" values="0;8" dur="7s" repeatCount="indefinite"/>
+          <!-- London -> Dubai -->
+          <path d="M480,140 Q530,170 590,210" stroke="url(#arcGradient1)" stroke-width="1.5" fill="none" stroke-dasharray="6,6" opacity="0.4">
+            <animate attributeName="stroke-dashoffset" values="0;12" dur="11s" repeatCount="indefinite"/>
           </path>
         </g>
 
-        <!-- Stylized continents - more refined -->
-        <g fill="#e8e4dc" stroke="#d6d2c9" stroke-width="0.8">
+        <!-- Continents - dark premium style -->
+        <g fill="url(#landGradient)" stroke="#3a4256" stroke-width="0.8">
           <!-- North America -->
-          <path d="M70,70 Q100,50 180,55 Q260,60 310,110 Q340,160 320,200 Q300,230 260,245 Q220,255 180,240 Q140,225 110,190 Q75,155 65,115 Q60,90 70,70Z"/>
+          <path d="M65,65 Q95,45 175,50 Q255,55 305,105 Q335,155 315,200 Q295,235 255,250 Q215,260 175,245 Q135,230 105,195 Q70,160 60,120 Q55,90 65,65Z"/>
           <!-- South America -->
-          <path d="M230,250 Q270,240 300,275 Q325,320 315,375 Q305,420 275,440 Q255,450 240,430 Q220,390 220,345 Q220,300 230,250Z"/>
+          <path d="M225,255 Q265,245 295,280 Q320,325 310,380 Q300,425 270,445 Q250,455 235,435 Q215,395 215,350 Q215,305 225,255Z"/>
+          <!-- Greenland -->
+          <path d="M300,45 Q340,40 360,65 Q370,85 355,100 Q340,110 320,100 Q305,88 300,65Z"/>
           <!-- Europe -->
-          <path d="M440,60 Q490,50 545,65 Q575,80 565,115 Q555,145 525,155 Q495,160 470,145 Q445,130 435,100 Q430,75 440,60Z"/>
+          <path d="M435,55 Q485,45 540,60 Q570,75 560,110 Q550,140 520,150 Q490,155 465,140 Q440,125 430,95 Q425,70 435,55Z"/>
+          <!-- UK -->
+          <path d="M450,65 Q465,60 470,75 Q473,90 465,100 Q457,105 450,95 Q445,83 450,65Z"/>
+          <!-- Scandinavia -->
+          <path d="M520,45 Q545,40 555,60 Q560,80 550,95 Q540,100 528,90 Q520,75 520,55Z"/>
           <!-- Africa -->
-          <path d="M460,160 Q510,150 550,185 Q580,220 570,275 Q560,325 535,365 Q510,395 485,390 Q460,385 450,340 Q440,295 445,245 Q450,195 460,160Z"/>
+          <path d="M455,155 Q505,145 545,180 Q575,215 565,270 Q555,320 530,360 Q505,390 480,385 Q455,380 445,335 Q435,290 440,240 Q445,190 455,155Z"/>
           <!-- Middle East / Arabia -->
-          <path d="M560,140 Q595,130 625,155 Q645,180 635,205 Q625,225 600,220 Q575,215 565,190 Q555,165 560,140Z"/>
+          <path d="M555,135 Q590,125 620,150 Q640,175 630,200 Q620,220 595,215 Q570,210 560,185 Q550,160 555,135Z"/>
           <!-- Asia (large) -->
-          <path d="M610,50 Q710,35 820,55 Q890,75 920,125 Q940,175 920,210 Q900,240 850,255 Q790,265 730,255 Q670,240 640,215 Q610,190 600,150 Q590,100 610,50Z"/>
-          <!-- Southeast Asia -->
-          <path d="M760,260 Q800,250 830,275 Q850,295 845,320 Q840,340 815,350 Q790,355 770,340 Q755,325 755,300 Q755,275 760,260Z"/>
+          <path d="M605,45 Q705,30 815,50 Q885,70 915,120 Q935,170 915,205 Q895,235 845,250 Q785,260 725,250 Q665,235 635,210 Q605,185 595,145 Q585,95 605,45Z"/>
+          <!-- Japan -->
+          <path d="M895,125 Q915,120 920,145 Q925,165 915,180 Q905,190 895,180 Q890,165 895,145Z"/>
+          <!-- Korea -->
+          <path d="M870,155 Q880,152 883,165 Q885,175 880,182 Q875,187 870,182 Q867,173 870,160Z"/>
+          <!-- Southeast Asia / Indonesia -->
+          <path d="M755,255 Q795,245 825,270 Q845,290 840,315 Q835,335 810,345 Q785,350 765,335 Q750,320 750,295 Q750,270 755,255Z"/>
+          <!-- Philippines -->
+          <path d="M825,240 Q838,238 842,255 Q845,270 838,280 Q832,285 826,278 Q822,265 825,250Z"/>
           <!-- Australia -->
-          <path d="M770,350 Q820,340 870,360 Q900,380 890,410 Q880,435 845,440 Q810,445 780,425 Q760,410 755,385 Q755,365 770,350Z"/>
-          <!-- Japan/Korea hint -->
-          <path d="M900,130 Q920,125 925,150 Q930,170 920,185 Q910,195 900,185 Q895,170 900,150Z"/>
-          <!-- UK/Ireland -->
-          <path d="M455,70 Q470,65 475,80 Q478,95 470,105 Q462,110 455,100 Q450,88 455,70Z"/>
+          <path d="M765,345 Q815,335 865,355 Q895,375 885,405 Q875,430 840,435 Q805,440 775,420 Q755,405 750,380 Q750,360 765,345Z"/>
+          <!-- New Zealand -->
+          <path d="M885,420 Q898,418 902,435 Q905,450 898,460 Q892,465 886,458 Q882,445 885,430Z"/>
         </g>
 
-        <!-- Major city markers with glow -->
-        <g class="markers" filter="url(#glow)">
-          <!-- Toronto / Canada - Primary -->
-          <g class="marker marker-primary">
-            <circle cx="210" cy="115" r="10" fill="#c97b5c" opacity="0.2"/>
-            <circle cx="210" cy="115" r="6" fill="#c97b5c"/>
-            <circle cx="210" cy="115" r="14" fill="none" stroke="#c97b5c" stroke-width="1" opacity="0.5">
-              <animate attributeName="r" values="8;20;8" dur="3s" repeatCount="indefinite"/>
+        <!-- HQ glow aura (Hong Kong) -->
+        <circle cx="800" cy="200" r="60" fill="url(#hqGlow)"/>
+        <circle cx="800" cy="200" r="40" fill="url(#hqGlow)" opacity="0.6"/>
+
+        <!-- Orbit rings around major cities -->
+        <g class="orbits" opacity="0.3">
+          <!-- HK orbit -->
+          <ellipse cx="800" cy="200" rx="50" ry="15" fill="none" stroke="#c97b5c" stroke-width="0.8" stroke-dasharray="3,3">
+            <animate attributeName="rx" values="45;55;45" dur="4s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="800" cy="200" rx="70" ry="22" fill="none" stroke="#c97b5c" stroke-width="0.5" stroke-dasharray="2,4" opacity="0.5">
+            <animate attributeName="rx" values="65;75;65" dur="5s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+
+        <!-- City markers -->
+        <g class="markers">
+          <!-- Hong Kong HQ - Largest -->
+          <g class="marker marker-hq" filter="url(#glowStrong)">
+            <circle cx="800" cy="200" r="10" fill="#c97b5c"/>
+            <circle cx="800" cy="200" r="4" fill="#fff"/>
+            <!-- Pulse rings -->
+            <circle cx="800" cy="200" r="10" fill="none" stroke="#c97b5c" stroke-width="2" opacity="0.8">
+              <animate attributeName="r" values="10;30;10" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="800" cy="200" r="10" fill="none" stroke="#c97b5c" stroke-width="1.5" opacity="0.5">
+              <animate attributeName="r" values="10;45;10" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+            </circle>
+          </g>
+
+          <!-- Toronto - Primary -->
+          <g class="marker marker-primary" filter="url(#glowOrange)">
+            <circle cx="220" cy="150" r="7" fill="#c97b5c"/>
+            <circle cx="220" cy="150" r="3" fill="#fff"/>
+            <circle cx="220" cy="150" r="7" fill="none" stroke="#c97b5c" stroke-width="1.5" opacity="0.6">
+              <animate attributeName="r" values="7;20;7" dur="3s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- London / Europe - Primary -->
-          <g class="marker marker-primary">
-            <circle cx="475" cy="90" r="10" fill="#8a9d80" opacity="0.2"/>
-            <circle cx="475" cy="90" r="6" fill="#8a9d80"/>
-            <circle cx="475" cy="90" r="14" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.5">
-              <animate attributeName="r" values="8;20;8" dur="3.5s" repeatCount="indefinite"/>
+
+          <!-- London - Primary -->
+          <g class="marker marker-primary" filter="url(#glowGreen)">
+            <circle cx="470" cy="130" r="7" fill="#8a9d80"/>
+            <circle cx="470" cy="130" r="3" fill="#fff"/>
+            <circle cx="470" cy="130" r="7" fill="none" stroke="#8a9d80" stroke-width="1.5" opacity="0.6">
+              <animate attributeName="r" values="7;20;7" dur="3.5s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0.6;0;0.6" dur="3.5s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Hong Kong - Primary / HQ -->
-          <g class="marker marker-hq">
-            <circle cx="810" cy="175" r="14" fill="#c97b5c" opacity="0.25"/>
-            <circle cx="810" cy="175" r="8" fill="#c97b5c"/>
-            <circle cx="810" cy="175" r="18" fill="none" stroke="#c97b5c" stroke-width="1.5" opacity="0.6">
-              <animate attributeName="r" values="10;26;10" dur="2.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite"/>
-            </circle>
-          </g>
+
           <!-- Singapore - Secondary -->
-          <g class="marker marker-secondary">
-            <circle cx="785" cy="265" r="8" fill="#8a9d80" opacity="0.2"/>
-            <circle cx="785" cy="265" r="5" fill="#8a9d80"/>
-            <circle cx="785" cy="265" r="12" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.4">
-              <animate attributeName="r" values="6;16;6" dur="3.2s" repeatCount="indefinite"/>
+          <g class="marker marker-secondary" filter="url(#glowGreen)">
+            <circle cx="775" cy="310" r="5" fill="#8a9d80"/>
+            <circle cx="775" cy="310" r="2" fill="#fff"/>
+            <circle cx="775" cy="310" r="5" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="5;15;5" dur="3.2s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0.5;0;0.5" dur="3.2s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Sydney / Australia - Secondary -->
-          <g class="marker marker-secondary">
-            <circle cx="840" cy="390" r="8" fill="#8a9d80" opacity="0.2"/>
-            <circle cx="840" cy="390" r="5" fill="#8a9d80"/>
-            <circle cx="840" cy="390" r="12" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.4">
-              <animate attributeName="r" values="6;16;6" dur="4s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
+
+          <!-- Dubai - Secondary -->
+          <g class="marker marker-secondary" filter="url(#glowOrange)">
+            <circle cx="590" cy="210" r="5" fill="#c97b5c"/>
+            <circle cx="590" cy="210" r="2" fill="#fff"/>
+            <circle cx="590" cy="210" r="5" fill="none" stroke="#c97b5c" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="5;15;5" dur="3.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="3.8s" repeatCount="indefinite"/>
             </circle>
           </g>
-          <!-- Dubai / Middle East - Secondary -->
-          <g class="marker marker-secondary">
-            <circle cx="585" cy="170" r="8" fill="#c97b5c" opacity="0.2"/>
-            <circle cx="585" cy="170" r="5" fill="#c97b5c"/>
-            <circle cx="585" cy="170" r="12" fill="none" stroke="#c97b5c" stroke-width="1" opacity="0.4">
-              <animate attributeName="r" values="6;16;6" dur="3.8s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.5;0;0.5" dur="3.8s" repeatCount="indefinite"/>
+
+          <!-- Sydney - Secondary -->
+          <g class="marker marker-secondary" filter="url(#glowGreen)">
+            <circle cx="830" cy="400" r="5" fill="#8a9d80"/>
+            <circle cx="830" cy="400" r="2" fill="#fff"/>
+            <circle cx="830" cy="400" r="5" fill="none" stroke="#8a9d80" stroke-width="1" opacity="0.5">
+              <animate attributeName="r" values="5;15;5" dur="4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
             </circle>
           </g>
         </g>
 
-        <!-- City labels -->
-        <g class="map-labels">
-          <!-- Primary labels -->
-          <g class="map-label map-label-primary">
-            <rect x="160" y="70" width="80" height="22" rx="11" fill="#fff" stroke="#e5e1d8"/>
-            <text x="200" y="85" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="600">多伦多 · 北美</text>
+        <!-- Labels - glass morphism style -->
+        <g class="map-labels" font-family="Inter, sans-serif">
+          <!-- HK HQ label - special -->
+          <g class="label-hq">
+            <rect x="720" y="155" width="140" height="30" rx="15" fill="rgba(201,123,92,0.15)" stroke="#c97b5c" stroke-width="1"/>
+            <circle cx="735" cy="170" r="4" fill="#c97b5c"/>
+            <text x="750" y="174" fill="#fff" font-size="13" font-weight="600">香港 · 总部</text>
           </g>
-          <g class="map-label map-label-primary">
-            <rect x="420" y="45" width="110" height="22" rx="11" fill="#fff" stroke="#e5e1d8"/>
-            <text x="475" y="60" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="600">伦敦 · 欧洲</text>
+          
+          <!-- Toronto -->
+          <g>
+            <rect x="155" y="115" width="120" height="26" rx="13" fill="rgba(15,18,24,0.8)" stroke="#2a3040" stroke-width="1"/>
+            <circle cx="168" cy="128" r="3" fill="#c97b5c"/>
+            <text x="180" y="132" fill="rgba(255,255,255,0.9)" font-size="12" font-weight="500">多伦多 · 北美</text>
           </g>
-          <g class="map-label map-label-hq">
-            <rect x="750" y="130" width="120" height="26" rx="13" fill="#c97b5c"/>
-            <text x="810" y="148" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">香港 · 总部</text>
+          
+          <!-- London -->
+          <g>
+            <rect x="400" y="95" width="120" height="26" rx="13" fill="rgba(15,18,24,0.8)" stroke="#2a3040" stroke-width="1"/>
+            <circle cx="413" cy="108" r="3" fill="#8a9d80"/>
+            <text x="425" y="112" fill="rgba(255,255,255,0.9)" font-size="12" font-weight="500">伦敦 · 欧洲</text>
           </g>
-          <!-- Secondary labels -->
-          <g class="map-label map-label-secondary">
-            <rect x="735" y="280" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
-            <text x="785" y="294" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">新加坡</text>
+          
+          <!-- Singapore -->
+          <g>
+            <rect x="705" y="335" width="100" height="24" rx="12" fill="rgba(15,18,24,0.8)" stroke="#2a3040" stroke-width="1"/>
+            <circle cx="717" cy="112" r="2.5" fill="#8a9d80"/>
+            <text x="728" y="349" fill="rgba(255,255,255,0.7)" font-size="11" font-weight="500">新加坡</text>
           </g>
-          <g class="map-label map-label-secondary">
-            <rect x="790" y="405" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
-            <text x="840" y="419" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">悉尼 · 澳洲</text>
+          
+          <!-- Dubai -->
+          <g>
+            <rect x="520" y="235" width="100" height="24" rx="12" fill="rgba(15,18,24,0.8)" stroke="#2a3040" stroke-width="1"/>
+            <circle cx="532" cy="112" r="2.5" fill="#c97b5c"/>
+            <text x="543" y="249" fill="rgba(255,255,255,0.7)" font-size="11" font-weight="500">迪拜 · 中东</text>
           </g>
-          <g class="map-label map-label-secondary">
-            <rect x="535" y="130" width="100" height="20" rx="10" fill="#fff" stroke="#e5e1d8"/>
-            <text x="585" y="144" text-anchor="middle" fill="#6a6a6a" font-size="11" font-weight="500">迪拜 · 中东</text>
+          
+          <!-- Sydney -->
+          <g>
+            <rect x="760" y="425" width="120" height="24" rx="12" fill="rgba(15,18,24,0.8)" stroke="#2a3040" stroke-width="1"/>
+            <circle cx="772" cy="112" r="2.5" fill="#8a9d80"/>
+            <text x="783" y="439" fill="rgba(255,255,255,0.7)" font-size="11" font-weight="500">悉尼 · 澳洲</text>
           </g>
         </g>
       </svg>

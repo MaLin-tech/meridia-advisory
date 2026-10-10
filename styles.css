@@ -796,39 +796,27 @@ h1, h2, h3, h4, h5 {
 /* ========== Markets ========== */
 .markets-map {
   margin: 60px 0 80px;
-  padding: 50px 40px;
-  background: linear-gradient(180deg, #faf8f3 0%, #f5f2eb 100%);
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  position: relative;
+  padding: 0;
+  background: #0f1218;
+  border-radius: 12px;
   overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 }
 
 .markets-map::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
-  opacity: 0.3;
+  display: none;
 }
 
 .map-svg {
   width: 100%;
   height: auto;
   max-height: 520px;
-  position: relative;
-  z-index: 1;
+  display: block;
 }
 
 .map-label {
   font-family: 'Inter', 'Noto Sans SC', sans-serif;
-}
-
-.map-label rect {
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));
 }
 
 .markets-grid {
