@@ -79,18 +79,18 @@ img {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 18px 0;
+  padding: 24px 0;
   transition: all 0.4s var(--ease);
-  background: rgba(248, 246, 241, 0.97);
+  background: rgba(248, 246, 241, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
 }
 
 .nav.scrolled {
-  padding: 12px 0;
+  padding: 16px 0;
   border-bottom-color: var(--border);
-  background: rgba(248, 246, 241, 0.99);
+  background: rgba(248, 246, 241, 0.995);
 }
 
 .nav-inner {
@@ -109,8 +109,8 @@ img {
 }
 
 .nav-logo-img {
-  height: 52px;
-  max-width: 400px;
+  height: 64px;
+  max-width: 480px;
   width: auto;
   display: block;
 }
@@ -217,7 +217,7 @@ img {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 140px 0 80px;
+  padding: 160px 0 100px;
   overflow: hidden;
 }
 
@@ -300,11 +300,11 @@ img {
 }
 
 .hero-title {
-  font-size: clamp(48px, 7vw, 88px);
+  font-size: clamp(52px, 8vw, 108px);
   font-weight: 500;
   line-height: 1.05;
-  margin-bottom: 24px;
-  max-width: 720px;
+  margin-bottom: 28px;
+  max-width: 800px;
 }
 
 .hero-line {
@@ -528,9 +528,9 @@ img {
 }
 
 .section-title {
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: clamp(40px, 5.5vw, 64px);
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   line-height: 1.1;
 }
 
@@ -558,7 +558,7 @@ img {
 
 .service-card {
   background: var(--bg);
-  padding: 48px 40px;
+  padding: 56px 48px;
   transition: all 0.5s var(--ease);
   position: relative;
   overflow: hidden;
@@ -586,25 +586,26 @@ img {
 }
 
 .service-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--terracotta);
-  letter-spacing: 0.1em;
-  margin-bottom: 24px;
+  letter-spacing: 0.15em;
+  margin-bottom: 28px;
 }
 
 .service-title {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 500;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .service-desc {
   font-size: 15px;
   color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 24px;
+  line-height: 1.8;
+  margin-bottom: 28px;
 }
 
 .service-tags {
