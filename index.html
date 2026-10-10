@@ -300,47 +300,12 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-          <filter id="glowCity" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="4" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <linearGradient id="connGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#c97b5c;stop-opacity:0"/>
-            <stop offset="50%" style="stop-color:#ffb88a;stop-opacity:0.9"/>
-            <stop offset="100%" style="stop-color:#c97b5c;stop-opacity:0"/>
-          </linearGradient>
           <radialGradient id="hqRadial" cx="50%" cy="50%" r="50%">
             <stop offset="0%" style="stop-color:#ffb88a;stop-opacity:0.5"/>
             <stop offset="30%" style="stop-color:#c97b5c;stop-opacity:0.2"/>
             <stop offset="100%" style="stop-color:#c97b5c;stop-opacity:0"/>
           </radialGradient>
         </defs>
-
-        <!-- Connection arcs -->
-        <g class="connections" opacity="0.6">
-          <path d="M720,220 Q500,60 280,180" stroke="url(#connGrad)" stroke-width="1.5" fill="none" stroke-dasharray="8,8">
-            <animate attributeName="stroke-dashoffset" values="32;0" dur="14s" repeatCount="indefinite"/>
-          </path>
-          <path d="M720,220 Q560,120 490,200" stroke="url(#connGrad)" stroke-width="1.5" fill="none" stroke-dasharray="8,8">
-            <animate attributeName="stroke-dashoffset" values="0;32" dur="12s" repeatCount="indefinite"/>
-          </path>
-          <path d="M720,220 Q700,300 690,350" stroke="url(#connGrad)" stroke-width="1.5" fill="none" stroke-dasharray="8,8">
-            <animate attributeName="stroke-dashoffset" values="16;0" dur="8s" repeatCount="indefinite"/>
-          </path>
-          <path d="M720,220 Q600,210 550,240" stroke="url(#connGrad)" stroke-width="1.5" fill="none" stroke-dasharray="8,8">
-            <animate attributeName="stroke-dashoffset" values="0;24" dur="10s" repeatCount="indefinite"/>
-          </path>
-          <path d="M720,220 Q740,380 750,470" stroke="url(#connGrad)" stroke-width="1.5" fill="none" stroke-dasharray="8,8">
-            <animate attributeName="stroke-dashoffset" values="20;0" dur="11s" repeatCount="indefinite"/>
-          </path>
-          <path d="M490,200 Q520,215 550,240" stroke="url(#connGrad)" stroke-width="1.2" fill="none" stroke-dasharray="6,6" opacity="0.6">
-            <animate attributeName="stroke-dashoffset" values="0;12" dur="13s" repeatCount="indefinite"/>
-          </path>
-        </g>
 
         <!-- HK HQ aura -->
         <circle cx="720" cy="220" r="70" fill="url(#hqRadial)"/>
@@ -360,51 +325,6 @@
               <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
             </circle>
           </g>
-
-          <g class="marker-city" filter="url(#glowCity)">
-            <circle cx="280" cy="180" r="8" fill="#ffb88a"/>
-            <circle cx="280" cy="180" r="3" fill="#fff"/>
-            <circle cx="280" cy="180" r="8" fill="none" stroke="#ffb88a" stroke-width="1.5" opacity="0.7">
-              <animate attributeName="r" values="8;22;8" dur="3s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-
-          <g class="marker-city" filter="url(#glowCity)">
-            <circle cx="490" cy="200" r="8" fill="#a8c8a0"/>
-            <circle cx="490" cy="200" r="3" fill="#fff"/>
-            <circle cx="490" cy="200" r="8" fill="none" stroke="#a8c8a0" stroke-width="1.5" opacity="0.7">
-              <animate attributeName="r" values="8;22;8" dur="3.5s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.7;0;0.7" dur="3.5s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-
-          <g class="marker-city" filter="url(#glowCity)">
-            <circle cx="690" cy="350" r="6" fill="#a8c8a0"/>
-            <circle cx="690" cy="350" r="2.5" fill="#fff"/>
-            <circle cx="690" cy="350" r="6" fill="none" stroke="#a8c8a0" stroke-width="1" opacity="0.6">
-              <animate attributeName="r" values="6;18;6" dur="3.2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.6;0;0.6" dur="3.2s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-
-          <g class="marker-city" filter="url(#glowCity)">
-            <circle cx="550" cy="240" r="6" fill="#ffb88a"/>
-            <circle cx="550" cy="240" r="2.5" fill="#fff"/>
-            <circle cx="550" cy="240" r="6" fill="none" stroke="#ffb88a" stroke-width="1" opacity="0.6">
-              <animate attributeName="r" values="6;18;6" dur="3.8s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.6;0;0.6" dur="3.8s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-
-          <g class="marker-city" filter="url(#glowCity)">
-            <circle cx="750" cy="470" r="6" fill="#a8c8a0"/>
-            <circle cx="750" cy="470" r="2.5" fill="#fff"/>
-            <circle cx="750" cy="470" r="6" fill="none" stroke="#a8c8a0" stroke-width="1" opacity="0.6">
-              <animate attributeName="r" values="6;18;6" dur="4s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.6;0;0.6" dur="4s" repeatCount="indefinite"/>
-            </circle>
-          </g>
         </g>
 
         <!-- City labels -->
@@ -413,31 +333,6 @@
             <rect x="640" y="175" width="160" height="34" rx="17" fill="rgba(201,123,92,0.2)" stroke="#ffb88a" stroke-width="1"/>
             <circle cx="657" cy="192" r="5" fill="#ffb88a"/>
             <text x="672" y="197" fill="#fff" font-size="14" font-weight="600">香港 · 总部</text>
-          </g>
-          <g>
-            <rect x="195" y="145" width="140" height="28" rx="14" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="209" cy="159" r="3.5" fill="#ffb88a"/>
-            <text x="221" y="163" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="500">多伦多 · 北美</text>
-          </g>
-          <g>
-            <rect x="410" y="165" width="130" height="28" rx="14" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="424" cy="179" r="3.5" fill="#a8c8a0"/>
-            <text x="436" y="183" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="500">伦敦 · 欧洲</text>
-          </g>
-          <g>
-            <rect x="610" y="365" width="100" height="26" rx="13" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="623" cy="378" r="3" fill="#a8c8a0"/>
-            <text x="634" y="382" fill="rgba(255,255,255,0.85)" font-size="11" font-weight="500">新加坡</text>
-          </g>
-          <g>
-            <rect x="480" y="255" width="110" height="26" rx="13" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="493" cy="268" r="3" fill="#ffb88a"/>
-            <text x="504" y="272" fill="rgba(255,255,255,0.85)" font-size="11" font-weight="500">迪拜 · 中东</text>
-          </g>
-          <g>
-            <rect x="675" y="485" width="130" height="26" rx="13" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="688" cy="498" r="3" fill="#a8c8a0"/>
-            <text x="699" y="502" fill="rgba(255,255,255,0.85)" font-size="11" font-weight="500">悉尼 · 澳洲</text>
           </g>
         </g>
       </svg>
