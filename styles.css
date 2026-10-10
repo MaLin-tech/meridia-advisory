@@ -79,7 +79,7 @@ img {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 24px 0;
+  padding: 28px 0;
   transition: all 0.4s var(--ease);
   background: rgba(248, 246, 241, 0.98);
   backdrop-filter: blur(16px);
@@ -88,7 +88,7 @@ img {
 }
 
 .nav.scrolled {
-  padding: 16px 0;
+  padding: 18px 0;
   border-bottom-color: var(--border);
   background: rgba(248, 246, 241, 0.995);
 }
@@ -109,8 +109,8 @@ img {
 }
 
 .nav-logo-img {
-  height: 64px;
-  max-width: 480px;
+  height: 80px;
+  max-width: 560px;
   width: auto;
   display: block;
 }
@@ -217,7 +217,7 @@ img {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 160px 0 100px;
+  padding: 180px 0 100px;
   overflow: hidden;
 }
 
@@ -1033,7 +1033,7 @@ img {
 }
 
 .footer-logo-img {
-  height: 60px;
+  height: 76px;
   width: auto;
   display: block;
   filter: brightness(0) invert(1) opacity(0.95);
