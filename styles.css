@@ -855,15 +855,18 @@ h1, h2, h3, h4, h5 {
   display: flex;
   gap: 20px;
   padding: 32px;
-  background: var(--bg-alt);
+  background: #1a1a1a;
   border-radius: 4px;
   transition: all 0.4s var(--ease);
   align-items: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .market-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  background: #222;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
 }
 
 .market-flag {
@@ -878,11 +881,12 @@ h1, h2, h3, h4, h5 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
+  color: #fff;
 }
 
 .market-item p {
   font-size: 14px;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.7;
 }
 
